@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "first_name": "Alan",
+    "last_name": "Guardez",
+    "email": "alan.guardez@example.com",
+    "date_of_birth": "1987-03-20",
+    "duration": "DURATION_MONTHS",
+    "estimated_pain_score": 4.5,
+    "primary_pain_type": {
+      "id": 3,
+      "name": "throbbing",
+      "parent_id": 1,
+      "parent_name": "physical"
+    },
+    "primary_pain_area": {
+      "id": 1,
+      "name": "back"
+    },
+    "primary_pain_times": [
+      "TOD_MORNING",
+      "TOD_AFTERNOON"
+    ],
+    "created_at": "2017-02-20 12:42:12"
+  }
+]
