@@ -1,6 +1,5 @@
-queue()
-    .defer(d3.json, "/pain_entries.json")
-    .await(makeUserGraphs);
+'use strict'
+
 
 var dateFormat = d3.time.format("%Y-%m-%d %H:%M:%S");
 
@@ -24,7 +23,7 @@ function average_map(m) {
     return m.size() ? sum / m.size() : 0;
 }
 
-function makeUserGraphs(error, recordsJson) {
+function makeUserGraphs(error, recordsJson, markersGeoJson) {
 
     //Clean data
     var records = recordsJson;
@@ -39,8 +38,8 @@ function makeUserGraphs(error, recordsJson) {
 
     //Define Dimensions
     var dateDim = ndx.dimension(function(d) { return d["log_time"]; });
-    var pain_typeDim = ndx.dimension(function(d) { return d["pain_type"]; });
-    var pain_areaDim = ndx.dimension(function(d) { return d["pain_area"]; });
+    var pain_typeDim = ndx.dimension(function(d) { return d["type"]["name"]; });
+    var pain_areaDim = ndx.dimension(function(d) { return d["area"]; });
     var pain_scoreDim = ndx.dimension(function(d) { return Math.floor(d["score"]); });
     var dayDim = ndx.dimension(function (d) {
         return dayNames[d["log_time"].getDay()];
@@ -58,17 +57,21 @@ function makeUserGraphs(error, recordsJson) {
     var numRecordsByScore = pain_scoreDim.group();
     var all = ndx.groupAll();
 
+    var painTimeG = dateDim.group().reduceSum(function (d) {
+        return d.score;
+    });
+
 
     var pain_scorePerDay = dayDim.group().reduce(
         function (p, v) { // add
             var log_time = d3.time.day(v.log_time).getTime();
-            p.map.set(log_time, p.map.has(log_time) ? p.map.get(log_time) + v['pain_score'] : v['count']);
+            p.map.set(log_time, p.map.has(log_time) ? p.map.get(log_time) + v['score'] : v['score']);
             p.avg = average_map(p.map);
             return p;
         },
         function (p, v) { // remove
             var log_time = d3.time.day(v.log_time).getTime();
-            p.map.set(log_time, p.map.has(log_time) ? p.map.get(log_time) - v['pain_score'] : 0);
+            p.map.set(log_time, p.map.has(log_time) ? p.map.get(log_time) - v['score'] : 0);
             p.avg = average_map(p.map);
             return p;
         },
@@ -79,13 +82,13 @@ function makeUserGraphs(error, recordsJson) {
     var pain_scorePerHour = hourDim.group().reduce(
         function (p, v) { // add
             var log_time = d3.time.day(v.log_time).getTime();
-            p.map.set(log_time, p.map.has(log_time) ? p.map.get(log_time) + v['pain_score'] : v['count']);
+            p.map.set(log_time, p.map.has(log_time) ? p.map.get(log_time) + v['score'] : v['score']);
             p.avg = average_map(p.map);
             return p;
         },
         function (p, v) { // remove
             var log_time = d3.time.day(v.log_time).getTime();
-            p.map.set(log_time, p.map.has(log_time) ? p.map.get(log_time) - v['pain_score'] : 0);
+            p.map.set(log_time, p.map.has(log_time) ? p.map.get(log_time) - v['score'] : 0);
             p.avg = average_map(p.map);
             return p;
         },
@@ -101,12 +104,13 @@ function makeUserGraphs(error, recordsJson) {
 
     //Charts
     var numberRecordsND = dc.numberDisplay("#number-records-nd");
-    var paintimeChart = dc.bubbleChart("#pain-time-chart");
+    var paintimeChart = dc.lineChart("#pain-time-chart");
     var dailyPainChart = dc.rowChart("#daily-pain-chart");
     var hourlyPainChart = dc.lineChart("#hourly-pain-chart");
     var painTypePie = dc.pieChart("#pain-type-pie");
+    var painAreaPie = dc.pieChart("#pain-area-pie");
     //Update the heatmap if any dc chart get filtered
-    dcCharts = [paintimeChart, dailyPainChart, hourlyPainChart, painTypePie];
+    var dcCharts = [paintimeChart, dailyPainChart, hourlyPainChart, painTypePie];
 
 
     numberRecordsND
@@ -116,18 +120,18 @@ function makeUserGraphs(error, recordsJson) {
 
 
     paintimeChart
-        .width(650)
+        .width(960)
         .height(140)
         .margins({top: 10, right: 50, bottom: 20, left: 20})
         .dimension(dateDim)
-        .group(numRecordsByDate)
+        .group(painTimeG)
         .transitionDuration(500)
         .x(d3.time.scale().domain([minDate, maxDate]))
         .elasticY(true)
         .yAxis().ticks(4);
 
     dailyPainChart
-        .width(500)
+        .width(430)
         .height(250)
         .transitionDuration(500)
         .dimension(dayDim)
@@ -150,7 +154,7 @@ function makeUserGraphs(error, recordsJson) {
         .xAxis().ticks(4);
 
     hourlyPainChart
-        .width(500)
+        .width(430)
         .height(250)
         .transitionDuration(500)
         .x(d3.scale.ordinal())
@@ -162,10 +166,10 @@ function makeUserGraphs(error, recordsJson) {
         })
         .colors(d3.scale.category10())
         .label(function (d) {
-            console.log("d is: " + d);
             return d.key;
         })
         .title(function (d) {
+            console.log(d);
             return d.key + ' / ' + d.value.avg;
         })
         .elasticX(true)
@@ -173,13 +177,13 @@ function makeUserGraphs(error, recordsJson) {
         .yAxisLabel("Average Pain Level")
         .xAxis().ticks(4);
 
-    painTypePie
-        .width(768)
-        .height(480)
+    painAreaPie
+        .width(250)
+        .height(250)
         //.slicesCap(4)
         .innerRadius(100)
         .dimension(allDim)
-        .group(numRecordsByType)
+        .group(numRecordsByArea)
         .legend(dc.legend())
         // workaround for #703: not enough data is accessible through .label() to display percentages
         .on('pretransition', function(chart) {
@@ -189,8 +193,8 @@ function makeUserGraphs(error, recordsJson) {
         });
 
     painTypePie
-        .width(300)
-        .height(300)
+        .width(250)
+        .height(250)
         //.slicesCap(4)
         .innerRadius(100)
         .dimension(allDim)
@@ -204,10 +208,18 @@ function makeUserGraphs(error, recordsJson) {
         });
     var map = L.map('map');
 
+    var hospitalicon = L.icon({
+    iconUrl: '/assets/img/hospital.png',
+
+    iconSize:     [8, 8], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
     var drawMap = function(){
 
         map.setView([54.58812897, -6.39210723] , 7);
-        mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+        var mapLink = '<a href="http://openstreetmap.org">OpenStreetMap</a>';
         L.tileLayer(
             'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; ' + mapLink + ' Contributors',
@@ -217,13 +229,14 @@ function makeUserGraphs(error, recordsJson) {
         //HeatMap
         var geoData = [];
         _.each(allDim.top(Infinity), function (d) {
-            geoData.push([d["location"]["latitude"], d["location"]["longitude"], 1]);
+            geoData.push([d["location"]["latitude"], d["location"]["longitude"], d['score']]);
         });
         var heat = L.heatLayer(geoData,{
             radius: 10,
             blur: 20,
             maxZoom: 1,
         }).addTo(map);
+        L.geoJson(markersGeoJson).addTo(map);
 
     };
 
@@ -242,3 +255,7 @@ function makeUserGraphs(error, recordsJson) {
     dc.renderAll();
 
 };
+queue()
+    .defer(d3.json, "/pain_random.json")
+    .defer(d3.json, "/hospitals.geojson")
+    .await(makeUserGraphs);

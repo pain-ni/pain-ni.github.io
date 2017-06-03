@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>Dashboard</title>
-  <link rel="stylesheet" href="./assets/lib/css//bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/lib/css/bootstrap.min.css">
   <link rel="stylesheet" href="./assets/lib/css/keen-dashboards.css">
   <link rel="stylesheet" href="./assets/lib/css/dc.min.css">
   <link rel="stylesheet" href="./assets/lib/css/leaflet.css">
   <link rel="stylesheet" href="./assets/css/custom.css">
   <link href="//fonts.googleapis.com/css?family=Nunito+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
   <script src="//use.fontawesome.com/d69623fe7f.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/dc/2.0.0/dc.min.js"></script>
 
 </head>
 <body class="application">
@@ -45,13 +46,26 @@
           <div class="col-sm-6">
             <div class="chart-wrapper">
               <div class="chart-title">
-                Brand
+                Day of Week
               </div>
               <div class="chart-stage">
                 <div id="daily-pain-chart"></div>
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-sm-6">
+            <div class="chart-wrapper">
+              <div class="chart-title">
+                Body Area
+              </div>
+              <div class="chart-stage">
+                <div id="pain-area-pie"></div>
+              </div>
+            </div>
+          </div>
+          </div>
+
           <!-- Brand -->
 
 
@@ -62,7 +76,7 @@
             <div class="col-sm-12">
               <div class="chart-wrapper">
                 <div class="chart-title">
-                  Gender
+                  Time of Day
                 </div>
                 <div class="chart-stage">
                   <div id="hourly-pain-chart"></div>
@@ -73,11 +87,11 @@
             <!-- Gender -->
 
             <!-- Age Segment -->
-            <div class="row">
+
             <div class="col-sm-12">
               <div class="chart-wrapper">
                 <div class="chart-title">
-                  Age Segment
+                  Pain Type
                 </div>
                 <div class="chart-stage">
                   <div id="pain-type-pie"></div>
@@ -85,7 +99,6 @@
               </div>
             </div>
             <!-- Age Segment -->
-          </div>
           </div>
 
 
@@ -97,13 +110,13 @@
 
         <div class="row">
           <!-- Map -->  
-          <div class="col-sm-12"> 
+          <div class="col-sm-24">
             <div class="chart-wrapper">
               <div class="chart-title">
                 Map
               </div>
               <div class="chart-stage">
-                <div id="map" style="width: 400px; height: 380px"></div>
+                <div id="map" style="width: 800;px; height: 800px"></div>
               </div>
             </div>
           </div>
@@ -112,10 +125,10 @@
 
         <div class="row">
           <!-- Number of events -->  
-          <div class="col-sm-12"> 
+          <div class="col-sm-8">
             <div class="chart-wrapper">
               <div class="chart-title">
-                Number of Events
+                Number of Entries
               </div>
               <div class="chart-stage">
                 <div id="number-records-nd"></div>
