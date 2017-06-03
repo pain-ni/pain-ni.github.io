@@ -1,0 +1,190 @@
+links:
+  - North Down Chiro:
+      url: http://www.northdownchiro.co.uk/conditions-we-treat/shoulder-pain/
+      name: North Down Chiro
+      location: 54.661768,-5.672833
+      condition:
+        name: Back Pain
+      type:
+        name: Private Health Service
+      pain_types:
+        - Burning
+        - Pulsing
+        - Throbbing
+      intervention_types:
+        - Chiropratic, Alternative Therapy
+      pain_areas:
+        - Back
+        - Neck
+        - Shoulder
+        - Hip
+  - Fibro Support Ards and North Down:
+      url: http://ndcn.co.uk/fibromyalgia-support-group-ards-north-down/
+      name: Fibro Support Ards and North Down
+      location: 54.6436065,-5.691036
+      condition:
+        name: Fibromyalgia
+      type:
+        name: Community
+      pain_types:
+        - Any
+      intervention_types:
+        - Support Group
+      pain_areas:
+        - Any
+  - Fibro Support North Down:
+      url: http://www.fmcpaware.org/northern-ireland
+      name: Fibro Support North Down
+      location: 54.6435799,-5.6757158
+      condition:
+        name: Fibromyalgia
+      type:
+        name: Community
+      pain_types:
+        - Any
+      intervention_types:
+        - Support Group
+      pain_areas:
+        - Any
+  - Fibro Support NI:
+      url: https://www.fmsni.org.uk/
+      name: Fibro Support NI
+      location: 54.609901,-5.9476939
+      condition:
+        name: Fibromyalgia
+      type:
+        name: Community
+      pain_types:
+        - Any
+      intervention_types:
+        - Support Group
+      pain_areas:
+        - Any
+  - North Down Physio:
+      url: http://www.northdownphysio.com
+      name: North Down Physio
+      location: 54.6423901,-5.8379687
+      condition:
+        name: General Pain
+      type:
+        name: Private Care Provider
+      pain_types:
+        - Burning
+        - Pulsing
+        - Throbbing
+      intervention_types:
+        - Physiotherapy
+        - Alternative Therapy
+      pain_areas:
+        - Any
+        - Back
+        - Neck
+        - Shoulder
+        - Hip
+        - Legs
+  - North Down Chiropractice:
+      url: http://www.northdownchiro.co.uk
+      name: North Down Chiropractice
+      location: 54.6617711,-5.6750217
+      condition:
+        name: Back Pain
+      type:
+        name: Private Care Provider
+      pain_types:
+        - Burning
+        - Pulsing
+        - Throbbing
+      intervention_types:
+        - Chiropratic
+        - Alternative Therapy
+      pain_areas:
+        - Back
+        - Neck
+        - Shoulder
+        - Hip
+  - Lisburn Chiro:
+      url: http://www.lisburnchiro.com/shoulderpain.html
+      name: Lisburn Chiro
+      location: 54.5132227,-6.0488638
+      condition:
+        name: General Pain
+      type:
+        name: Private Care Provider
+      pain_types:
+        - Burning
+        - Pulsing
+        - Throbbing
+      intervention_types:
+        - Chiropratic
+        - Alternative Therapy
+      pain_areas:
+        - Back
+        - Neck
+        - Shoulder
+        - Hip
+  - Belfast Knee Clinic:
+      url: http://www.belfastkneeclinic.com/procedures.html
+      name: Belfast Knee Clinic
+      location: 54.5848304,-5.9431285
+      condition:
+        name: Knee Pain
+      type:
+        name: Health Service Care Provider
+      pain_types:
+        - Throbbing
+        - Pulsing
+      intervention_types:
+        - Physiotherapy
+      pain_areas:
+        - Knee
+  - Ulster Sports Clinic:
+      url: http://www.ulstersportsmedicineclinic.com
+      name: Ulster Sports Clinic
+      location: 54.4780753,-6.3323452
+      condition:
+        name: Injury
+      type:
+        name: Private Care Provider
+      pain_types:
+        - Throbbing
+        - Pulsing
+        - Burning
+      intervention_types:
+        - Physiotherapy
+      pain_areas:
+        - Any
+        - Back
+        - Neck
+        - Knee
+        - Leg
+  - Chronic Pain Service - Musgrave Park:
+      url: http://www.belfasttrust.hscni.net/services/2283.htm
+      name: Chronic Pain Service - Musgrave Park
+      location: 54.5683999,-5.983733
+      condition:
+        name: Chronic Pain
+      type:
+        name: Health Service Provider
+      pain_types:
+        - Throbbing
+        - Pulsing
+        - Burning
+        - Numbness
+      intervention_types:
+        - Multidisciplinary
+      pain_areas:
+        - Any
+  - Group:
+      url:
+      name:
+      location:
+      condition:
+        name:
+      type:
+        name:
+      pain_types:
+        -
+      intervention_types:
+        -
+      pain_areas:
+        -
