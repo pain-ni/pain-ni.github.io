@@ -181,7 +181,7 @@ function makeUserGraphs(error, recordsJson, markersGeoJson) {
         .width(250)
         .height(250)
         //.slicesCap(4)
-        .innerRadius(100)
+        .innerRadius(30)
         .dimension(allDim)
         .group(numRecordsByArea)
         .legend(dc.legend())
@@ -196,7 +196,7 @@ function makeUserGraphs(error, recordsJson, markersGeoJson) {
         .width(250)
         .height(250)
         //.slicesCap(4)
-        .innerRadius(100)
+        .innerRadius(30)
         .dimension(allDim)
         .group(numRecordsByType)
         .legend(dc.legend())
@@ -212,7 +212,7 @@ function makeUserGraphs(error, recordsJson, markersGeoJson) {
     iconUrl: '/assets/img/hospital.png',
 
     iconSize:     [8, 8], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    iconAnchor:   [4,4], // point of the icon which will correspond to marker's location
     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
@@ -236,7 +236,15 @@ function makeUserGraphs(error, recordsJson, markersGeoJson) {
             blur: 20,
             maxZoom: 1,
         }).addTo(map);
-        L.geoJson(markersGeoJson).addTo(map);
+        L.geoJson(markersGeoJson, {
+            pointToLayer: function(feature, latlng) {
+                return L.marker(latlng, {icon: hospitalicon});
+            },
+           onEachFeature: function (feature, layer) {
+                   layer.bindPopup(feature.properties.ATT1 + '<br />'
+                                                 + feature.properties.ATT2);
+           }
+         }).addTo(map);
 
     };
 
