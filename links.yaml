@@ -157,6 +157,23 @@ links:
         - Neck
         - Knee
         - Leg
+  - Chronic Pain Service - Musgrave Park:
+      url: http://www.belfasttrust.hscni.net/services/2283.htm
+      name: Chronic Pain Service - Musgrave Park
+      location: 54.5683999,-5.983733
+      condition:
+        name: Chronic Pain
+      type:
+        name: Health Service Provider
+      pain_types:
+        - Throbbing
+        - Pulsing
+        - Burning
+        - Numbness
+      intervention_types:
+        - Multidisciplinary
+      pain_areas:
+        - Any
   - Group:
       url:
       name:
